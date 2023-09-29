@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTaskInList } from './slices/tasksSlice';
+import {updateTaskInServer } from './slices/tasksSlice';
 
 function MyVerticallyCenteredModal(props) {
     const {selectedTask}=useSelector((state)=>state.tasks);
@@ -15,7 +15,7 @@ function MyVerticallyCenteredModal(props) {
 
     const UpdateTask=()=>{
         props.onHide(); //to make it close on cliking UpdateTask btn
-        dispatch(updateTaskInList({id,title,desc}))
+        dispatch(updateTaskInServer({id,title,desc}))
     }
 
     useEffect(()=>{

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { addTaskToList } from './slices/tasksSlice';
+import {addTaskToServer } from './slices/tasksSlice';
 import { useDispatch } from 'react-redux';
 //used to get and set input from user in form:
 function AddTask() {
@@ -13,7 +13,7 @@ function AddTask() {
     const addTask = (e) => {
         e.preventDefault();
         console.log({ title, desc })//fetches what we entered in title,desc fields
-        dispatch(addTaskToList({ title, desc }))
+        dispatch(addTaskToServer({ title, desc }))
         setTitle("");
         setDesc("");
     }

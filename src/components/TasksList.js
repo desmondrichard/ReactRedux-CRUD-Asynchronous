@@ -3,8 +3,9 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import MyVerticallyCenteredModal from './UpdateTask';
 import { useDispatch, useSelector } from 'react-redux';
-import { setselectedTask } from './slices/tasksSlice';
+import { deleteTaskFromServer, getTasksFromServer, setselectedTask } from './slices/tasksSlice';
 import { removeTaskFromList } from './slices/tasksSlice';
+import {useEffect} from 'react';
 
 function TasksList() {
     const { tasksList } = useSelector((state) => state.tasks)
@@ -15,9 +16,20 @@ function TasksList() {
         setModalShow(true); //on clicking update btn modal will open so made true and this line will make setModalShow from false to true
         dispatch(setselectedTask(task))
     }
+
+    //To make api calls when screen is loading:
+    useEffect(()=>{
+        dispatch(getTasksFromServer())
+    },[dispatch])
+
+
     function deleteTask(task) {
         console.log("delete");
-        dispatch(removeTaskFromList(task))
+        dispatch(deleteTaskFromServer(task))
+        .unwrap()
+        .then(()=>{
+            dispatch(removeTaskFromList(task))
+        })
     }
     const [modalShow, setModalShow] = useState("");
     return (
